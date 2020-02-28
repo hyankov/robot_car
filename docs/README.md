@@ -62,9 +62,29 @@ I am going to use a combination of Arduino kit jumper cables and a stripped CAT5
 Click image to download `fzz` file.
 
 ## 4WD, 2 Bridges
+### Pros
+- Each tyre could go in a different direction, individually. Not sure if this helps a lot for turning left and right.
+- Maybe would put less load on the bridge
+
+### Cons
+- Takes up almost all of my Arduino pins (2 bridges x 2 motors each x 3 wires = 12 pins!)
+- Will have to split red wire to power both bridges
+- Will lose symmetry (one of the bridges will power the Arduino)
+- Might be more power-hungry? Not sure yet.
+- Takes more wiring
+- Requires more coding
+
 [![4WD, 2 Bridges](img/ObstacleCar_2_Bridges_4wd.jpg)](ObstacleCar_2_Bridges_4wd.fzz)
 
 ## 4WD, 1 Bridge
+### Pros
+- Will require only 6 pins on the Arduino
+- A bit less coding
+- Symmetry
+
+### Cons
+- Left side and right side motors are 'grouped' (i.e. both wheels on each side can only go in the same direction)
+
 [![4WD, 1 Bridge](img/ObstacleCar_1_Bridge_4wd.jpg)](ObstacleCar_1_Bridge_4wd.fzz)
 
 # Code
