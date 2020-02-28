@@ -54,9 +54,9 @@ I am going to use a combination of Arduino kit jumper cables and a stripped CAT5
 
 ## Others
 - Need some kind of spacers/standoffs, to be able to put the components on to the chassis:
-![](https://cdn.shopify.com/s/files/1/0773/7087/products/919189454d943389893.jpeg?v=1442435381)
-- I think I'll also need a proto-screw shield to wire things into the Arduino without soldering. Something like:
-![](https://cdn-shop.adafruit.com/970x728/196-02.jpg)
+![](https://images-na.ssl-images-amazon.com/images/I/61V-SsslZOL._SL1500_.jpg)
+- I think I'll also need screws to wire things into the Arduino and/or its proto-shield without soldering. Something like:
+![](https://images-na.ssl-images-amazon.com/images/I/71SNCyuP3dL._SL1200_.jpg)
 
 # Wiring
 Click image to download `fzz` file.
