@@ -14,6 +14,8 @@ Q: How powerful are the wheel motors individually (i.e., RPMs, amps, max. speed,
 A: Its speed is 200 rpm. Torque is 0.68. current is 90 mA. All parameter are tested without loading.
 ```
 
+I have actually measured the motor usage at 180 mA without any loads.
+
 ```
 Q: Does this meet these specifications:brushed [versus brushless] dc motors 5v-9v 100ma to 500 ma with tires and integrated gearbox?
 A: Its motor power supply is 3V ~ 6V without without load.
