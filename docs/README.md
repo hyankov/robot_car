@@ -5,7 +5,7 @@ This project puts together an obstacle-avoiding self-driving robot car. At a lat
 ## Chassis kit
 Contains basic car chassis, motors, wheel and tyres and a not very useful 4 x 1.5V AA battery holder.
 
-![Chassis kit](img/chassis_kit.jpg)
+[![Chassis kit](img/chassis_kit.jpg)](https://www.amazon.com/gp/product/B07DNXBFQN)
 
 The information I have about the motors is:
 
@@ -24,7 +24,7 @@ A: Its motor power supply is 3V ~ 6V without without load.
 Wires need soldering to the motors. The battery holder is useless because you cannot power the bridges with 6V.
 
 ## L298N H-Bridge(s)
-![L298N](img/HBridges.jpg)
+[![L298N](img/HBridges.jpg)](https://www.amazon.com/gp/product/B01M29YK5U)
 
 Here's some very useful information about them:
 - [Link 1](https://dronebotworkshop.com/dc-motors-l298n-h-bridge/)
@@ -43,17 +43,16 @@ Key take-aways:
 Not sure if they regulate the voltage passed to the motors, I think not. So if you have a 3~6V motor, you'd probably want to pass no more than `6V + 1.4V` to the H-Bridge, which will drop the voltage down to 6V for the motor.
 
 ## Wires
-I am going to use a combination of Arduino kit jumper cables and a stripped CAT5 cable.
+I am going to use a combination of [jumper wires](https://www.amazon.com/gp/product/B07GD2BWPY) and a stripped CAT5 cable.
 
 ## Power
-6x holder of 1.2V AA NiMH recharchable batteries (rated 2000mAh each) = 7.2V
+[6x holder](https://www.amazon.com/gp/product/B081395LK3) of 1.2V AA NiMH recharchable batteries (rated 2000mAh each) = 7.2V
 
 ## Sensors
 - Ultrasonic (to detect and avoid obstacles)
 
 ## Others
-- Need some kind of spacers/standoffs, to be able to put the components on to the chassis:
-![](https://images-na.ssl-images-amazon.com/images/I/61V-SsslZOL._SL1500_.jpg)
+- [Spacers/standoffs, to be able to put the components on to the chassis](https://www.amazon.com/gp/product/B073ZC6PB9)
 
 ## TODO:
 Sensors and parts to be added at a later stage:
