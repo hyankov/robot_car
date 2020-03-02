@@ -14,6 +14,8 @@ Q: How powerful are the wheel motors individually (i.e., RPMs, amps, max. speed,
 A: Its speed is 200 rpm. Torque is 0.68. current is 90 mA. All parameter are tested without loading.
 ```
 
+I have actually measured the motor usage at 180 mA without any loads.
+
 ```
 Q: Does this meet these specifications:brushed [versus brushless] dc motors 5v-9v 100ma to 500 ma with tires and integrated gearbox?
 A: Its motor power supply is 3V ~ 6V without without load.
@@ -35,6 +37,8 @@ Key take-aways:
 - Can provide regulated 5V out, which can be used to power the Arduino
 - Will drop 1.4-1.7V, or more (inefficiency)
 - Has a 5V jumper in place: jumper in - you provide 7.5V to the H-Bridge and it outputs 5V, otherwise you have to provide the 5V as logical input
+- You can provide PWM to the Enable pin, to control speed of the motor
+- Make sure you have a common ground with the Arduino
 
 Not sure if they regulate the voltage passed to the motors, I think not. So if you have a 3~6V motor, you'd probably want to pass no more than `6V + 1.4V` to the H-Bridge, which will drop the voltage down to 6V for the motor.
 
@@ -49,9 +53,7 @@ I am going to use a combination of Arduino kit jumper cables and a stripped CAT5
 
 ## Others
 - Need some kind of spacers/standoffs, to be able to put the components on to the chassis:
-![](https://cdn.shopify.com/s/files/1/0773/7087/products/919189454d943389893.jpeg?v=1442435381)
-- I think I'll also need a proto-screw shield to wire things into the Arduino without soldering. Something like:
-![](https://cdn-shop.adafruit.com/970x728/196-02.jpg)
+![](https://images-na.ssl-images-amazon.com/images/I/61V-SsslZOL._SL1500_.jpg)
 
 ## TODO:
 Sensors and parts to be added at a later stage:
@@ -65,12 +67,32 @@ Sensors and parts to be added at a later stage:
 Click image to download `fzz` file.
 
 ## 4WD, 2 Bridges
+### Pros
+- Each tyre could go in a different direction, individually. Not sure if this helps a lot for turning left and right.
+- Maybe would put less load on the bridge
+
+### Cons
+- Takes up almost all of my Arduino pins (2 bridges x 2 motors each x 3 wires = 12 pins!)
+- Will have to split red wire to power both bridges
+- Will lose symmetry (one of the bridges will power the Arduino)
+- Might be more power-hungry? Not sure yet.
+- Takes more wiring
+- Requires more coding
+
 [![4WD, 2 Bridges](img/ObstacleCar_2_Bridges_4wd.jpg)](ObstacleCar_2_Bridges_4wd.fzz)
 
 ## 4WD, 1 Bridge
+### Pros
+- Will require only 6 pins on the Arduino
+- A bit less coding
+- Symmetry
+
+### Cons
+- Left side and right side motors are 'grouped' (i.e. both wheels on each side can only go in the same direction)
+
 [![4WD, 1 Bridge](img/ObstacleCar_1_Bridge_4wd.jpg)](ObstacleCar_1_Bridge_4wd.fzz)
 
 # Code
-`TODO:` Not yet implemented.
+**Work in progress ...**
 
 See [RoboCar.ino](../RoboCar/RoboCar.ino)
