@@ -1,5 +1,5 @@
 {
-    "sketch": "RoboCar.ino",
+    "sketch": "RoboCar/RoboCar.ino",
     "port": "COM6",
     "board": "arduino:avr:uno",
     "output": "../ArduinoOutput",

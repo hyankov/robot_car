@@ -7,20 +7,20 @@
             ],
             "includePath": [
                 "${workspaceRoot}",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\**",
-                "C:\\Program Files (x86)\\Arduino\\tools\\**",
-                "C:\\Program Files (x86)\\Arduino\\hardware\\tools\\**",
-                "C:\\Program Files (x86)\\Arduino\\libraries\\**",
-                "C:\\Users\\Hristo_Yankov\\Documents\\Arduino\\hardware\\tools\\**",
-                "C:\\Users\\Hristo_Yankov\\Documents\\Arduino\\libraries\\**"
+                "${env:programfiles(x86)}\\Arduino\\hardware\\arduino\\avr\\**",
+                "${env:programfiles(x86)}\\Arduino\\tools\\**",
+                "${env:programfiles(x86)}\\Arduino\\hardware\\tools\\**",
+                "${env:programfiles(x86)}\\Arduino\\libraries\\**",
+                "${env:userprofile}\\Documents\\Arduino\\hardware\\tools\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\**"
             ],
             "forcedInclude": [
-                "C:\\Program Files (x86)\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
+                "${env:programfiles(x86)}\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"
             ],
-            "intelliSenseMode": "clang-x64",
+            "intelliSenseMode": "${default}",
             "cStandard": "c11",
             "cppStandard": "c++17",
-            "compilerPath": "C:/Program Files (x86)/Microsoft Visual Studio/2017/Professional/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe"
+            "compilerPath": "${env:programfiles(x86)}/Microsoft Visual Studio/2017/Professional/VC/Tools/MSVC/14.16.27023/bin/Hostx64/x64/cl.exe"
         }
     ],
     "version": 4

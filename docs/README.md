@@ -42,20 +42,24 @@ Not sure if they regulate the voltage passed to the motors, I think not. So if y
 I am going to use a combination of Arduino kit jumper cables and a stripped CAT5 cable.
 
 ## Power
-`TODO:` Still choosing an appropriate battery. Has to be around 7.1V - 7.5V
+6x holder of 1.2V AA NiMH recharchable batteries (rated 2000mAh each) = 7.2V
 
 ## Sensors
-`TODO:` To be added on a later stage.
 - Ultrasonic (to detect and avoid obstacles)
-- Servo (to rotate Ultrasonic sensor)
-- Bluetooth (to receive control over bluetooth phone joystick)
-- Photoresistor (to turn on/off headlights)
 
 ## Others
 - Need some kind of spacers/standoffs, to be able to put the components on to the chassis:
 ![](https://cdn.shopify.com/s/files/1/0773/7087/products/919189454d943389893.jpeg?v=1442435381)
 - I think I'll also need a proto-screw shield to wire things into the Arduino without soldering. Something like:
 ![](https://cdn-shop.adafruit.com/970x728/196-02.jpg)
+
+## TODO:
+Sensors and parts to be added at a later stage:
+- Ultrasonic (to detect and avoid obstacles)
+- Servo (to rotate Ultrasonic sensor)
+- Bluetooth (to receive control over bluetooth phone joystick) or IR (take commands from remote control)
+- Photoresistor (to turn on/off LED headlights)
+- Screen to show misc information
 
 # Wiring
 Click image to download `fzz` file.
@@ -69,4 +73,4 @@ Click image to download `fzz` file.
 # Code
 `TODO:` Not yet implemented.
 
-See [RoboCar.ino](../RoboCar.ino)
+See [RoboCar.ino](../RoboCar/RoboCar.ino)
