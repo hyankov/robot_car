@@ -4,14 +4,11 @@
     ------------------------------------------------------------------
 */
 
-// 3rd party includes
-#include <NewPing.h>
-
 // The distance to the obstacle in front
 extern unsigned int frontObstacleDistanceCm;
 
 //  NOTE: To be invoked at initialization time!
-void setupObstacle();
+void setupSonar();
 
 // The main loop
-void loopObstacle();
+void loopSonar();

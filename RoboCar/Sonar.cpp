@@ -11,9 +11,9 @@
 #include "Arduino.h"
 
 // 1st party includes
-#include "Pins.hh"     // Pin layout. Set pins according to your wiring
-#include "Settings.hh" // Include settings
-#include "Obstacle.hh" // Method definitions
+#include "Pins.hh"      // Pin layout. Set pins according to your wiring
+#include "Settings.hh"  // Include settings
+#include "Sonar.hh"     // Method definitions
 
 // 3rd party includes
 #include <NewPing.h>
@@ -23,7 +23,7 @@
 ----------------------- */
 
 unsigned long _previousMsPing = 0;
-NewPing _sonar(PIN_ULTRASOUND_TRIG, PIN_ULTRASOUND_ECHO, SONAR_MAX_DISTANCE_CM);
+NewPing _sonar(PIN_SONAR_FRONT_TRIG, PIN_SONAR_FRONT_ECHO, SONAR_MAX_DISTANCE_CM);
 
 /* -----------------------
     Public methods
@@ -31,17 +31,18 @@ NewPing _sonar(PIN_ULTRASOUND_TRIG, PIN_ULTRASOUND_ECHO, SONAR_MAX_DISTANCE_CM);
 
 unsigned int frontObstacleDistanceCm = NO_ECHO;
 
-
-void setupObstacle()
+void setupSonar()
 {
     // Bug: This doesn't work. See https://forum.arduino.cc/index.php?topic=420604.0
     // NewPing::timer_ms(SONAR_PING_FREQUENCY_MS, _updateObstacleProximity);
 }
 
-void loopObstacle()
+void loopSonar()
 {
     unsigned long currentMillis = millis();
 
+    // Every SONAR_PING_FREQUENCY_MS milliseconds, update the distance to
+    // the front obstacle
     if (currentMillis - _previousMsPing >= SONAR_PING_FREQUENCY_MS)
     {
         // save the last time

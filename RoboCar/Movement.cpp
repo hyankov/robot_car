@@ -32,33 +32,36 @@
     Private methods
 ----------------------- */
 
+// When (millis) to stop turning (if making a turn).
+unsigned long _stopTurningAt = 0;
+
 void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards)
 {
     // Left-side forwards or backwards
-    digitalWrite(PIN_MOTORS_SIDE_LEFT_IN1, !leftIsBackwards ? HIGH : LOW);
-    digitalWrite(PIN_MOTORS_SIDE_LEFT_IN2, leftIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_LEFT_IN1, !leftIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_LEFT_IN2, leftIsBackwards ? HIGH : LOW);
 
     // Right-side forwards or backwards
-    digitalWrite(PIN_MOTORS_SIDE_RIGHT_IN1, !rightIsBackwards ? HIGH : LOW);
-    digitalWrite(PIN_MOTORS_SIDE_RIGHT_IN2, rightIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_RIGHT_IN1, !rightIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_RIGHT_IN2, rightIsBackwards ? HIGH : LOW);
 }
 
 void _move(int speed, bool leftIsBackwards, bool rightIsBackwards)
 {
-    // Speed is MIN_SPEED to FULL_SPEED
-    speed = constrain(speed, MIN_SPEED, FULL_SPEED);
+    // Speed is MIN_SPEED to MAX_SPEED
+    speed = constrain(speed, MIN_SPEED, MAX_SPEED);
 
-    if (speed == FULL_SPEED)
+    if (speed == MAX_SPEED)
     {
         // Both motor sides go at full speed ...
-        digitalWrite(PIN_MOTORS_SIDE_LEFT_EN, HIGH);
-        digitalWrite(PIN_MOTORS_SIDE_RIGHT_EN, HIGH);
+        digitalWrite(PIN_MOTORS_LEFT_EN, HIGH);
+        digitalWrite(PIN_MOTORS_RIGHT_EN, HIGH);
     }
     else
     {
         // Both motor sides go at a specified speed ...
-        analogWrite(PIN_MOTORS_SIDE_LEFT_EN, speed);
-        analogWrite(PIN_MOTORS_SIDE_RIGHT_EN, speed);
+        analogWrite(PIN_MOTORS_LEFT_EN, speed);
+        analogWrite(PIN_MOTORS_RIGHT_EN, speed);
     }
 
     // Direct the motors the same way
@@ -72,14 +75,50 @@ void _move(int speed, bool leftIsBackwards, bool rightIsBackwards)
 void setupMovement()
 {
     // Left-side motor(s)
-    pinMode(PIN_MOTORS_SIDE_LEFT_EN, OUTPUT);
-    pinMode(PIN_MOTORS_SIDE_LEFT_IN1, OUTPUT);
-    pinMode(PIN_MOTORS_SIDE_LEFT_IN2, OUTPUT);
+    pinMode(PIN_MOTORS_LEFT_EN, OUTPUT);
+    pinMode(PIN_MOTORS_LEFT_IN1, OUTPUT);
+    pinMode(PIN_MOTORS_LEFT_IN2, OUTPUT);
 
     // Right-side motor(s)
-    pinMode(PIN_MOTORS_SIDE_RIGHT_EN, OUTPUT);
-    pinMode(PIN_MOTORS_SIDE_RIGHT_IN1, OUTPUT);
-    pinMode(PIN_MOTORS_SIDE_RIGHT_IN2, OUTPUT);
+    pinMode(PIN_MOTORS_RIGHT_EN, OUTPUT);
+    pinMode(PIN_MOTORS_RIGHT_IN1, OUTPUT);
+    pinMode(PIN_MOTORS_RIGHT_IN2, OUTPUT);
+}
+
+void loopMovement()
+{
+    unsigned long currentMillis = millis();
+
+    // If it's time to stop the turn movement ...
+    if (_stopTurningAt && currentMillis >= _stopTurningAt)
+    {
+        // Stop movement
+        stop(true);
+
+        // Reset timer
+        _stopTurningAt = 0;
+    }
+}
+
+bool isMoving()
+{
+   // See: 'Motor truth table' above. We're not moving if ...
+   return 
+        // Left is stopped
+        (
+            // motor is stopped
+                !digitalRead(PIN_MOTORS_LEFT_EN)
+            // or IN1 & IN2 are equal (0 or 1)
+            || (digitalRead(PIN_MOTORS_LEFT_IN1) == digitalRead(PIN_MOTORS_LEFT_IN2))
+        )
+
+        // and Right is stopped
+        && (
+            // motor is stopped
+                !digitalRead(PIN_MOTORS_RIGHT_EN)
+            // or IN1 & IN2 are equal (0 or 1)
+            || (digitalRead(PIN_MOTORS_RIGHT_IN1) == digitalRead(PIN_MOTORS_RIGHT_IN2))
+        );
 }
 
 void moveForward(int speed)
@@ -94,27 +133,29 @@ void moveBackwards(int speed)
 
 void stop(bool isBrake)
 {
-    // Stop the motors
-    digitalWrite(PIN_MOTORS_SIDE_LEFT_EN, LOW);
-    digitalWrite(PIN_MOTORS_SIDE_RIGHT_EN, LOW);
-
     // Is it a sudden brake?
     if (isBrake)
     {
-        // Sudden stop left motors
-        digitalWrite(PIN_MOTORS_SIDE_LEFT_IN1, LOW);
-        digitalWrite(PIN_MOTORS_SIDE_LEFT_IN2, LOW);
+        // Brake left motors
+        digitalWrite(PIN_MOTORS_LEFT_IN1, LOW);
+        digitalWrite(PIN_MOTORS_LEFT_IN2, LOW);
 
-        // Sudden stop right motors
-        digitalWrite(PIN_MOTORS_SIDE_RIGHT_IN1, LOW);
-        digitalWrite(PIN_MOTORS_SIDE_RIGHT_IN2, LOW);
+        // Brake right motors
+        digitalWrite(PIN_MOTORS_RIGHT_IN1, LOW);
+        digitalWrite(PIN_MOTORS_RIGHT_IN2, LOW);
+    }
+    else
+    {
+        // Gradual brake, just turn off power
+        digitalWrite(PIN_MOTORS_LEFT_EN, LOW);
+        digitalWrite(PIN_MOTORS_RIGHT_EN, LOW);
     }
 }
 
 void turn(int degree)
 {
-    // No-op
-    if (degree == 0) return;
+    // If degree is 0 or we're already making a turn ...
+    if (degree == 0 || _stopTurningAt > 0) return;
 
     // Degree is -180 to 180
     degree = constrain(degree, -180, 180);
@@ -122,85 +163,14 @@ void turn(int degree)
     // If we want to make a left turn, the left side moves
     // backwards and the right side moves forward.
     bool leftIsBackwards = degree < 0;
-    _move(FULL_SPEED, leftIsBackwards, !leftIsBackwards);
+    _move(MAX_SPEED, leftIsBackwards, !leftIsBackwards);
 
-    // Wait for the turn to complete, time it takes to make a 1 degree turn
-    // at full speed, multiplied by the (abs) degrees we're turning.
+    // Stop movement after the time it takes to make a 1 degree turn at full
+    // speed, multiplied by the (abs) degrees we're turning.
     // TODO: Use adjustable resistor to increase/decrease how long a 180-deg
     // turn takes, because it might be different on different surfaces.
-    delay((MOTOR_180_DEG_TURN_TIME_MS / 180.0) * abs(degree));
+    int expectedTurnTimeMs = (MOTOR_180_DEG_TURN_TIME_MS / 180.0) * abs(degree);
 
-    // Stop
-    stop(true);
-}
-
-void runMovementDiagnostics(long delayMs)
-{
-    // FWD - Accelerate from min to max
-    for (int speed = MIN_SPEED; speed <= FULL_SPEED; speed++)
-    {
-        moveForward(speed);
-        delay(delayMs);
-    }
-
-    // FWD - Decelerate from max to min
-    for (int speed = FULL_SPEED; speed >= MIN_SPEED; speed--)
-    {
-        moveForward(speed);
-        delay(delayMs);
-    }
-
-    // BWD - Accelerate from min to max
-    for (int speed = MIN_SPEED; speed <= FULL_SPEED; speed++)
-    {
-        moveBackwards(speed);
-        delay(delayMs);
-    }
-
-    // BWD - Decelerate from max to min
-    for (int speed = FULL_SPEED; speed >= MIN_SPEED; speed--)
-    {
-        moveBackwards(speed);
-        delay(delayMs);
-    }
-
-    // FWD - Full speed, sudden stop
-    moveForward(FULL_SPEED);
-    delay(delayMs * 100);
-    stop(true);
-    
-    // BWD - Full speed, sudden stop
-    moveBackwards(FULL_SPEED);
-    delay(delayMs * 100);
-    stop(true);
-
-    // FWD - Move at minimum speed, soft stop
-    moveForward(MIN_SPEED);
-    delay(delayMs * 100);
-    stop(false);
-
-    // BWD - Move at minimum speed, soft stop
-    moveBackwards(MIN_SPEED);
-    delay(delayMs * 100);
-    stop(false);
-
-    // Turn left, 4 times
-    turn(-45);
-    delay(delayMs * 50);
-    turn(-45);
-    delay(delayMs * 50);
-    turn(-45);
-    delay(delayMs * 50);
-    turn(-45);
-    delay(delayMs * 50);
-
-    // Turn right, 4 times
-    turn(45);
-    delay(delayMs * 50);
-    turn(45);
-    delay(delayMs * 50);
-    turn(45);
-    delay(delayMs * 50);
-    turn(45);
-    delay(delayMs * 50);
+    // Stop the movement at ...
+    _stopTurningAt = millis() + expectedTurnTimeMs;
 }
