@@ -7,6 +7,7 @@
     Capabilities:
     - Move forward, backwards, make turns
     - Detect obstacles and make evasive maneuvers
+
     TODO:
     - Turn on headlights in low light conditions
     - Display information on a small display
@@ -18,6 +19,7 @@
 #include "Movement.hh"      // Responsible for controlling the movements of the robot
 #include "Sonar.hh"         // Responsible for detecting obstacles
 #include "Lights.hh"        // Responsible for managing the lights of the car
+#include "SelfDriving.hh"   // Responsible for the self-driving
 
 // Setup and initialize
 void setup()
@@ -34,6 +36,11 @@ void setup()
     // Setup the lights module
     setupLights();
 
+    // Setup the self-driving module
+    setupSelfDriving();
+
+    // Wait for a little while right after booting, to allow
+    // people to back-off.
     delay(BOOT_UP_DELAY_MS);
 }
 
@@ -43,26 +50,4 @@ void loop()
     loopSonar();
     loopMovement();
     loopSelfDriving();
-}
-
-// The self-driving loop responsible for changing directions
-// and avoiding obstacles.
-void loopSelfDriving()
-{
-    // If we are not moving
-    if (!isMoving())
-    {
-        // Start moving forward at a random speed
-        moveForward(random(MIN_SPEED, MAX_SPEED));
-    }
-
-    // If obstacle is within range ...
-    if (frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= AVOID_OBSTACLE_AT_PROXIMITY_CM)
-    {
-        // Randomly turn 90 to 180 or -90 to -180 degrees. At the end
-        // of the turn, the robot will stop moving. Multiple overlapping
-        // turns will be ignored. i.e. no new turn will begin until the
-        // old one finishes.
-        turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1));
-    }
 }
