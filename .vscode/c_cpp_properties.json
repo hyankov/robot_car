@@ -3,6 +3,8 @@
         {
             "name": "Win32",
             "defines": [
+                "__AVR__",
+                "__AVR_ATmega328P__",
                 "ARDUINO=10800"
             ],
             "includePath": [
@@ -12,7 +14,8 @@
                 "${env:programfiles(x86)}\\Arduino\\hardware\\tools\\**",
                 "${env:programfiles(x86)}\\Arduino\\libraries\\**",
                 "${env:userprofile}\\Documents\\Arduino\\hardware\\tools\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\**"
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\**",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\NewPing\\src"
             ],
             "forcedInclude": [
                 "${env:programfiles(x86)}\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"

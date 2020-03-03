@@ -46,5 +46,5 @@ void stop(bool isBrake);
 void turn(int degree);
 
 // Run movement diagnostics.
-// - delay: delay in ms between operations and in loops.
+// - delayMs: delay in ms between operations and in loops.
 void runMovementDiagnostics(long delayMs);

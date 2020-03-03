@@ -20,11 +20,13 @@
     --------------------------------------------------
 */
 
-// Misc
+// 2nd party includes
+#include "Arduino.h"
+
+// 1st party includes
 #include "Pins.hh"      // Pin layout. Set pins according to your wiring
 #include "Settings.hh"  // Include settings
-#include "Arduino.h"
-#include "Movement.hh"
+#include "Movement.hh"  // Method definitions
 
 /* -----------------------
     Private methods
@@ -109,8 +111,6 @@ void stop(bool isBrake)
     }
 }
 
-// Make a turn.
-// - degree: -180 to 180.
 void turn(int degree)
 {
     // No-op
@@ -128,14 +128,12 @@ void turn(int degree)
     // at full speed, multiplied by the (abs) degrees we're turning.
     // TODO: Use adjustable resistor to increase/decrease how long a 180-deg
     // turn takes, because it might be different on different surfaces.
-    delay((_180_DEG_TURN_TIME_MS / 180.0) * abs(degree));
+    delay((MOTOR_180_DEG_TURN_TIME_MS / 180.0) * abs(degree));
 
     // Stop
     stop(true);
 }
 
-// Run movement diagnostics.
-// - delay: delay in ms between operations and in loops.
 void runMovementDiagnostics(long delayMs)
 {
     // FWD - Accelerate from min to max

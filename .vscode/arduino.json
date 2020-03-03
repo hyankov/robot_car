@@ -3,5 +3,5 @@
     "port": "COM6",
     "board": "arduino:avr:uno",
     "output": "../ArduinoOutput",
-    "programmer": "AVR ISP"
+    "programmer": "AVRISP mkII"
 }

@@ -4,12 +4,17 @@
     --------------------------------------------------------------------
 */
 
-// Misc
-#include "Pins.hh"      // Pin layout. Set pins according to your wiring
-#include "Settings.hh"  // Include settings
+// 2nd party includes
 #include "Arduino.h"
 
-#include "ManualControl.hh"
+// 1st party includes
+#include "Pins.hh"          // Pin layout. Set pins according to your wiring
+#include "Settings.hh"      // Include settings
+#include "ManualControl.hh" // Method definitions
+
+/* -----------------------
+    Public methods
+----------------------- */
 
 void setupManualControl()
 {

@@ -4,4 +4,9 @@
     --------------------------------------------------------------------
 */
 
+/* -----------------------
+    Public methods
+----------------------- */
+
+//  NOTE: To be invoked at initialization time!
 void setupManualControl();

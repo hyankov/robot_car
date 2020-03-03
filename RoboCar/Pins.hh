@@ -4,18 +4,16 @@
     -------------------------------------------------------------
 */
 
-#ifndef H_PINS
-    #define PIN_MOTORS_SIDE_LEFT_EN 3
-    #define PIN_MOTORS_SIDE_LEFT_IN1 2
-    #define PIN_MOTORS_SIDE_LEFT_IN2 1
-    #define PIN_MOTORS_SIDE_RIGHT_EN 5
-    #define PIN_MOTORS_SIDE_RIGHT_IN1 4
-    #define PIN_MOTORS_SIDE_RIGHT_IN2 6
+#pragma once
 
-    /*
-    #define PIN_ULTRASOUND_TRIG 1
-    #define PIN_ULTRASOUND_ECHO 1
-    */
+// Motors
+#define PIN_MOTORS_SIDE_LEFT_EN 3
+#define PIN_MOTORS_SIDE_LEFT_IN1 2
+#define PIN_MOTORS_SIDE_LEFT_IN2 1
+#define PIN_MOTORS_SIDE_RIGHT_EN 5
+#define PIN_MOTORS_SIDE_RIGHT_IN1 4
+#define PIN_MOTORS_SIDE_RIGHT_IN2 6
 
-    #define H_PINS
-#endif
+// Sonar
+#define PIN_ULTRASOUND_TRIG 8
+#define PIN_ULTRASOUND_ECHO 9
