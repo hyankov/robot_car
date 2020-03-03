@@ -25,8 +25,6 @@
 // Setup and initialize
 void setup()
 {
-    // Serial.begin(9600);
-
     // Setup the movements module
     setupMovement();
 
