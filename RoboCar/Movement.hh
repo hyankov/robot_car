@@ -7,25 +7,6 @@
 #define FULL_SPEED 255
 #define MIN_SPEED 65
 
-/* -----------------------
-    Private methods
------------------------ */
-
-// Make the motors go forwards or backwards.
-// - leftIsBackwards: whether the left-side motors go backwards
-// - rightIsForwards: whether the right-side motors go backwards
-void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards);
-
-// Move at a certain speed.
-// - speed: [MIN_SPEED] to [FULL_SPEED]
-// - leftIsBackwards: left moves backwards
-// - rightIsBackwards: right moves backwards
-void _move(int speed, bool leftIsBackwards, bool rightIsBackwards);
-
-/* -----------------------
-    Public methods
------------------------ */
-
 //  NOTE: To be invoked at initialization time!
 void setupMovement();
 

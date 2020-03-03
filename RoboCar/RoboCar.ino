@@ -1,6 +1,7 @@
 /*
     -------------------------------------------------------
-    Code for obstacle-avoiding robot car. Work in progress.
+    Code for self-driving, obstacle-avoiding robot car.
+                       Work in progress.
     -------------------------------------------------------
     
     Capabilities:
@@ -9,10 +10,6 @@
     TODO:
     - Turn on headlights in low light conditions
     - Display information on a small display
-    
-    Modes:
-    - Autonomous - roam around and avoid obstacles
-    - Manual - receive input from a remote control (bluetooth or IR)
 */
 
 // 1st party includes
@@ -21,11 +18,15 @@
 #include "Movement.hh"      // Responsible for controlling the movements of the robot
 #include "Obstacle.hh"      // Responsible for detecting obstacles
 #include "Lights.hh"        // Responsible for managing the lights of the car
-#include "ManualControl.hh" // Responsible for receiving manual control commands
+
+// 3rd party includes
+#include <timer.h>
 
 // Setup and initialize
 void setup()
 {
+    // Serial.begin(9600);
+
     // Setup the movements module
     setupMovement();
 
@@ -34,11 +35,12 @@ void setup()
 
     // Setup the lights module
     setupLights();
-
-    // Setup the manual control module
-    setupManualControl();
 }
 
+unsigned long reset = millis();
+
+// The main, repeatable loop
 void loop()
 {
+    loopObstacle();
 }

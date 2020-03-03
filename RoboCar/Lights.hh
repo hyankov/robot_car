@@ -4,9 +4,8 @@
     ------------------------------------------------------
 */
 
-/* -----------------------
-    Public methods
------------------------ */
-
 //  NOTE: To be invoked at initialization time!
 void setupLights();
+
+// The main lights loop
+void loopLights();

@@ -20,3 +20,8 @@ void setupLights()
 {
     // TODO
 }
+
+void loopLights()
+{
+    // TODO
+}
