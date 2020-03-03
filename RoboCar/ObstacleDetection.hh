@@ -8,7 +8,7 @@
 extern unsigned int frontObstacleDistanceCm;
 
 //  NOTE: To be invoked at initialization time!
-void setupSonar();
+void setupObstacleDetection();
 
 // The main loop
-void loopSonar();
+void loopObstacleDetection();

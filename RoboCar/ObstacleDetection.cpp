@@ -13,7 +13,7 @@
 // 1st party includes
 #include "Pins.hh"      // Pin layout. Set pins according to your wiring
 #include "Settings.hh"  // Include settings
-#include "Sonar.hh"     // Method definitions
+#include "ObstacleDetection.hh"     // Method definitions
 
 // 3rd party includes
 #include <NewPing.h>
@@ -23,7 +23,7 @@
 ----------------------- */
 
 unsigned long _previousMsPing = 0;
-NewPing _sonar(PIN_SONAR_FRONT_TRIG, PIN_SONAR_FRONT_ECHO, SONAR_MAX_DISTANCE_CM);
+NewPing _frontSonar(PIN_SONAR_FRONT_TRIG, PIN_SONAR_FRONT_ECHO, SONAR_MAX_DISTANCE_CM);
 
 /* -----------------------
     Public methods
@@ -31,13 +31,13 @@ NewPing _sonar(PIN_SONAR_FRONT_TRIG, PIN_SONAR_FRONT_ECHO, SONAR_MAX_DISTANCE_CM
 
 unsigned int frontObstacleDistanceCm = NO_ECHO;
 
-void setupSonar()
+void setupObstacleDetection()
 {
     // Bug: This doesn't work. See https://forum.arduino.cc/index.php?topic=420604.0
     // NewPing::timer_ms(SONAR_PING_FREQUENCY_MS, _updateObstacleProximity);
 }
 
-void loopSonar()
+void loopObstacleDetection()
 {
     unsigned long currentMillis = millis();
 
@@ -49,6 +49,6 @@ void loopSonar()
         _previousMsPing = currentMillis;
 
         // Get the distance, in cm. Apply correction filter.
-        frontObstacleDistanceCm = NewPing::convert_cm(_sonar.ping_median());
+        frontObstacleDistanceCm = NewPing::convert_cm(_frontSonar.ping_median());
     }
 }

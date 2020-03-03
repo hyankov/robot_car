@@ -8,12 +8,12 @@
 #include "Arduino.h"
 
 // 1st party includes
-#include "Pins.hh"          // Pin layout. Set pins according to your wiring
-#include "Settings.hh"      // Include settings
-#include "Movement.hh"      // Responsible for controlling the movements of the robot
-#include "Sonar.hh"         // Responsible for detecting obstacles
-#include "Lights.hh"        // Responsible for managing the lights of the car
-#include "SelfDriving.hh"   // Responsible for the self-driving
+#include "Pins.hh"              // Pin layout. Set pins according to your wiring
+#include "Settings.hh"          // Include settings
+#include "Movement.hh"          // Responsible for controlling the movements of the robot
+#include "ObstacleDetection.hh" // Responsible for detecting obstacles
+#include "Lights.hh"            // Responsible for managing the lights of the car
+#include "SelfDriving.hh"       // Responsible for the self-driving
 
 /* -----------------------
     Public methods
