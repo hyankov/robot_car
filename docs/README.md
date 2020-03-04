@@ -96,7 +96,7 @@ Click image to download `fzz` file.
 Features:
 - [Settings](../RoboCar/Settings.hh) file
 - [Pins layout](../RoboCar/Pins.hh) file
-- Modularity, separate 'tab'/class for the different concerns:
+- Separate 'modules' for the different concerns:
   - [Movement](../RoboCar/Movement.cpp)
   - [Lights](../RoboCar/Lights.cpp)
   - [SelfDriving](../RoboCar/SelfDriving.cpp)
