@@ -11,8 +11,8 @@
 #include "Arduino.h"
 
 // 1st party includes
-#include "Pins.hh"      // Pin layout. Set pins according to your wiring
-#include "Settings.hh"  // Include settings
+#include "Pins.hh"                  // Pin layout. Set pins according to your wiring
+#include "Settings.hh"              // Include settings
 #include "ObstacleDetection.hh"     // Method definitions
 
 // 3rd party includes
