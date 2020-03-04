@@ -7,7 +7,7 @@
 #pragma once
 
 // Max speed of the motors
-#define MAX_SPEED 255
+#define MAX_SPEED 200
 
 // Min speed of the motors
 #define MIN_SPEED 100
@@ -26,5 +26,5 @@
 // When used in ping_median, it should be >= (NumberOfPings * 30)
 #define SONAR_PING_FREQUENCY_MS         150
 
-// At how many cm proximity to avoid obstacles
-#define AVOID_OBSTACLE_AT_PROXIMITY_CM  30
+// At what proximity (in cm) to avoid obstacles
+#define AVOID_OBSTACLE_AT_PROXIMITY_CM  40
