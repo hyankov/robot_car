@@ -32,8 +32,8 @@
     Private methods
 ----------------------- */
 
-// When (millis) to stop turning (if making a turn).
-unsigned long _stopTurningAt = 0;
+// When (millis) to stop movement.
+unsigned long _stopMovementAt = 0;
 
 void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards)
 {
@@ -46,7 +46,7 @@ void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards)
     digitalWrite(PIN_MOTORS_RIGHT_IN2, rightIsBackwards ? HIGH : LOW);
 }
 
-void _move(int speed, bool leftIsBackwards, bool rightIsBackwards)
+void _move(int speed, bool leftIsBackwards, bool rightIsBackwards, int forHowLongMs)
 {
     // Speed is MIN_SPEED to MAX_SPEED
     speed = constrain(speed, MIN_SPEED, MAX_SPEED);
@@ -66,6 +66,9 @@ void _move(int speed, bool leftIsBackwards, bool rightIsBackwards)
 
     // Direct the motors the same way
     _setMotorsDirection(leftIsBackwards, rightIsBackwards);
+
+    // Stop the movement at ...
+    _stopMovementAt = millis() + forHowLongMs;
 }
 
 /* -----------------------
@@ -89,21 +92,31 @@ void loopMovement()
 {
     unsigned long currentMillis = millis();
 
-    // If it's time to stop the turn movement ...
-    if (_stopTurningAt && currentMillis >= _stopTurningAt)
+    // If it's time to stop the movement ...
+    if (_stopMovementAt && currentMillis >= _stopMovementAt)
     {
         // Stop movement
         stop(true);
-
-        // Reset timer
-        _stopTurningAt = 0;
     }
 }
 
-bool isMoving()
+bool isTurning()
+{
+    // See: 'Motor truth table' above. We're turning if ...
+    bool isTurning =  
+        // One of the motors is stopped, but the other is not
+        (digitalRead(PIN_MOTORS_LEFT_EN) != digitalRead(PIN_MOTORS_RIGHT_EN))
+        // or they're moving in different directions
+        || (digitalRead(PIN_MOTORS_LEFT_IN1) != digitalRead(PIN_MOTORS_RIGHT_IN1))
+        || (digitalRead(PIN_MOTORS_LEFT_IN2) != digitalRead(PIN_MOTORS_RIGHT_IN2));
+
+    return isTurning;
+}
+
+bool isStopped()
 {
    // See: 'Motor truth table' above. We're not moving if ...
-   return 
+   bool isStopped =  
         // Left is stopped
         (
             // motor is stopped
@@ -119,16 +132,18 @@ bool isMoving()
             // or IN1 & IN2 are equal (0 or 1)
             || (digitalRead(PIN_MOTORS_RIGHT_IN1) == digitalRead(PIN_MOTORS_RIGHT_IN2))
         );
+
+    return isStopped;
 }
 
-void moveForward(int speed)
+void moveForward(int speed, int forHowLongMs)
 {
-    _move(speed, false, false);
+    _move(speed, false, false, forHowLongMs);
 }
 
-void moveBackwards(int speed)
+void moveBackwards(int speed, int forHowLongMs)
 {
-    _move(speed, true, true);
+    _move(speed, true, true, forHowLongMs);
 }
 
 void stop(bool isBrake)
@@ -150,20 +165,20 @@ void stop(bool isBrake)
         digitalWrite(PIN_MOTORS_LEFT_EN, LOW);
         digitalWrite(PIN_MOTORS_RIGHT_EN, LOW);
     }
+
+    // Reset timer
+    _stopMovementAt = 0;
 }
 
-void turn(int degree)
+bool turn(int degree)
 {
-    // If degree is 0 or we're already making a turn ...
-    if (degree == 0 || _stopTurningAt > 0) return;
+    // If degree is 0, no-op
+    if (degree == 0) return false;
+
+    stop(true);
 
     // Degree is -180 to 180
     degree = constrain(degree, -180, 180);
-
-    // If we want to make a left turn, the left side moves
-    // backwards and the right side moves forward.
-    bool leftIsBackwards = degree < 0;
-    _move(MAX_SPEED, leftIsBackwards, !leftIsBackwards);
 
     // Stop movement after the time it takes to make a 1 degree turn at full
     // speed, multiplied by the (abs) degrees we're turning.
@@ -171,6 +186,9 @@ void turn(int degree)
     // turn takes, because it might be different on different surfaces.
     int expectedTurnTimeMs = (MOTOR_180_DEG_TURN_TIME_MS / 180.0) * abs(degree);
 
-    // Stop the movement at ...
-    _stopTurningAt = millis() + expectedTurnTimeMs;
+    // If we want to make a left turn, the left side moves
+    // backwards and the right side moves forward.
+    _move(MAX_SPEED, degree < 0, degree > 0, expectedTurnTimeMs);
+
+    return true;
 }

@@ -6,6 +6,12 @@
 
 #pragma once
 
+// Max speed of the motors
+#define MAX_SPEED 180
+
+// Min speed of the motors
+#define MIN_SPEED 100
+
 // How long to wait after power on, before taking over control
 #define BOOT_UP_DELAY_MS                2500
 
@@ -17,8 +23,8 @@
 #define SONAR_MAX_DISTANCE_CM           200
 
 // How often to ping, in ms. Minimum should be 29
-// When used in ping_median, it should be >= (5 * 30)
-#define SONAR_PING_FREQUENCY_MS         200
+// When used in ping_median, it should be >= (NumberOfPings * 30)
+#define SONAR_PING_FREQUENCY_MS         150
 
 // At how many cm proximity to avoid obstacles
-#define AVOID_OBSTACLE_AT_PROXIMITY_CM  20
+#define AVOID_OBSTACLE_AT_PROXIMITY_CM  30
