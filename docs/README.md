@@ -96,6 +96,10 @@ Click image to download `fzz` file.
 Features:
 - [Settings](../RoboCar/Settings.hh) file
 - [Pins layout](../RoboCar/Pins.hh) file
-- Modularity - separate 'tab'/class for the different concerns - Movement, Lights, SelfDriving, ObstacleDetection, etc
+- Modularity, separate 'tab'/class for the different concerns:
+  - [Movement](../RoboCar/Movement.cpp)
+  - [Lights](../RoboCar/Lights.cpp)
+  - [SelfDriving](../RoboCar/SelfDriving.cpp)
+  - [ObstacleDetection](../RoboCar/ObstacleDetection.cpp)
 - Non-blocking (no `delay` calls)
 - Uses [NewPing library](https://playground.arduino.cc/Code/NewPing)
