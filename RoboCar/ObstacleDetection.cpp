@@ -23,7 +23,7 @@
 ----------------------- */
 
 unsigned long _previousMsPing = 0;
-NewPing _frontSonar(PIN_SONAR_FRONT_TRIG, PIN_SONAR_FRONT_ECHO, SONAR_MAX_DISTANCE_CM);
+NewPing _frontSonar(PIN_SONAR_TRIG_FRONT, PIN_SONAR_ECHO_FRONT, SONAR_DISTANCE_MAX_CM);
 
 /* -----------------------
     Public methods

@@ -18,12 +18,12 @@ bool isTurning();
 bool isStopped();
 
 // Move forward.
-// - speed: [MIN_SPEED] to [MAX_SPEED]
+// - speed: [SPEED_MIN] to [SPEED_MAX]
 // - forHowLongMs: for how long (in ms) to move forward
 void moveForward(int speed, int forHowLongMs);
 
 // Move backwards.
-// - speed: [MIN_SPEED] to [MAX_SPEED]
+// - speed: [SPEED_MIN] to [SPEED_MAX]
 // - forHowLongMs: for how long (in ms) to move forward
 void moveBackwards(unsigned int speed, unsigned int forHowLongMs);
 

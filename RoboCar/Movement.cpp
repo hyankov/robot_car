@@ -38,30 +38,30 @@ unsigned long _stopMovementAt = 0;
 void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards)
 {
     // Left-side forwards or backwards
-    digitalWrite(PIN_MOTORS_LEFT_IN1, !leftIsBackwards ? HIGH : LOW);
-    digitalWrite(PIN_MOTORS_LEFT_IN2, leftIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_IN1_LEFT, !leftIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_IN2_LEFT, leftIsBackwards ? HIGH : LOW);
 
     // Right-side forwards or backwards
-    digitalWrite(PIN_MOTORS_RIGHT_IN1, !rightIsBackwards ? HIGH : LOW);
-    digitalWrite(PIN_MOTORS_RIGHT_IN2, rightIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_IN1_RIGHT, !rightIsBackwards ? HIGH : LOW);
+    digitalWrite(PIN_MOTORS_IN2_RIGHT, rightIsBackwards ? HIGH : LOW);
 }
 
 void _move(int speed, bool leftIsBackwards, bool rightIsBackwards, int forHowLongMs)
 {
-    // Speed is MIN_SPEED to MAX_SPEED
-    speed = constrain(speed, MIN_SPEED, MAX_SPEED);
+    // Speed is SPEED_MIN to SPEED_MAX
+    speed = constrain(speed, SPEED_MIN, SPEED_MAX);
 
-    if (speed == MAX_SPEED)
+    if (speed == SPEED_MAX)
     {
         // Both motor sides go at full speed ...
-        digitalWrite(PIN_MOTORS_LEFT_EN, HIGH);
-        digitalWrite(PIN_MOTORS_RIGHT_EN, HIGH);
+        digitalWrite(PIN_MOTORS_EN_LEFT, HIGH);
+        digitalWrite(PIN_MOTORS_EN_RIGHT, HIGH);
     }
     else
     {
         // Both motor sides go at a specified speed ...
-        analogWrite(PIN_MOTORS_LEFT_EN, speed);
-        analogWrite(PIN_MOTORS_RIGHT_EN, speed);
+        analogWrite(PIN_MOTORS_EN_LEFT, speed);
+        analogWrite(PIN_MOTORS_EN_RIGHT, speed);
     }
 
     // Direct the motors the same way
@@ -78,14 +78,14 @@ void _move(int speed, bool leftIsBackwards, bool rightIsBackwards, int forHowLon
 void setupMovement()
 {
     // Left-side motor(s)
-    pinMode(PIN_MOTORS_LEFT_EN, OUTPUT);
-    pinMode(PIN_MOTORS_LEFT_IN1, OUTPUT);
-    pinMode(PIN_MOTORS_LEFT_IN2, OUTPUT);
+    pinMode(PIN_MOTORS_EN_LEFT, OUTPUT);
+    pinMode(PIN_MOTORS_IN1_LEFT, OUTPUT);
+    pinMode(PIN_MOTORS_IN2_LEFT, OUTPUT);
 
     // Right-side motor(s)
-    pinMode(PIN_MOTORS_RIGHT_EN, OUTPUT);
-    pinMode(PIN_MOTORS_RIGHT_IN1, OUTPUT);
-    pinMode(PIN_MOTORS_RIGHT_IN2, OUTPUT);
+    pinMode(PIN_MOTORS_EN_RIGHT, OUTPUT);
+    pinMode(PIN_MOTORS_IN1_RIGHT, OUTPUT);
+    pinMode(PIN_MOTORS_IN2_RIGHT, OUTPUT);
 }
 
 void loopMovement()
@@ -105,10 +105,10 @@ bool isTurning()
     // See: 'Motor truth table' above. We're turning if ...
     return  
         // One of the motors is stopped, but the other is not
-            (digitalRead(PIN_MOTORS_LEFT_EN) != digitalRead(PIN_MOTORS_RIGHT_EN))
+            (digitalRead(PIN_MOTORS_EN_LEFT) != digitalRead(PIN_MOTORS_EN_RIGHT))
         // or they're moving in different directions
-        ||  (digitalRead(PIN_MOTORS_LEFT_IN1) != digitalRead(PIN_MOTORS_RIGHT_IN1))
-        ||  (digitalRead(PIN_MOTORS_LEFT_IN2) != digitalRead(PIN_MOTORS_RIGHT_IN2));
+        ||  (digitalRead(PIN_MOTORS_IN1_LEFT) != digitalRead(PIN_MOTORS_IN1_RIGHT))
+        ||  (digitalRead(PIN_MOTORS_IN2_LEFT) != digitalRead(PIN_MOTORS_IN2_RIGHT));
 }
 
 bool isStopped()
@@ -118,17 +118,17 @@ bool isStopped()
         // Left is stopped
         (
             // motor is stopped
-                !digitalRead(PIN_MOTORS_LEFT_EN)
+                !digitalRead(PIN_MOTORS_EN_LEFT)
             // or IN1 & IN2 are equal (0 or 1)
-            ||  (digitalRead(PIN_MOTORS_LEFT_IN1) == digitalRead(PIN_MOTORS_LEFT_IN2))
+            ||  (digitalRead(PIN_MOTORS_IN1_LEFT) == digitalRead(PIN_MOTORS_IN2_LEFT))
         )
 
         // and Right is stopped
         && (
             // motor is stopped
-                !digitalRead(PIN_MOTORS_RIGHT_EN)
+                !digitalRead(PIN_MOTORS_EN_RIGHT)
             // or IN1 & IN2 are equal (0 or 1)
-            ||  (digitalRead(PIN_MOTORS_RIGHT_IN1) == digitalRead(PIN_MOTORS_RIGHT_IN2))
+            ||  (digitalRead(PIN_MOTORS_IN1_RIGHT) == digitalRead(PIN_MOTORS_IN2_RIGHT))
         );
 }
 
@@ -148,18 +148,18 @@ void stop(bool isBrake)
     if (isBrake)
     {
         // Brake left motors
-        digitalWrite(PIN_MOTORS_LEFT_IN1, LOW);
-        digitalWrite(PIN_MOTORS_LEFT_IN2, LOW);
+        digitalWrite(PIN_MOTORS_IN1_LEFT, LOW);
+        digitalWrite(PIN_MOTORS_IN2_LEFT, LOW);
 
         // Brake right motors
-        digitalWrite(PIN_MOTORS_RIGHT_IN1, LOW);
-        digitalWrite(PIN_MOTORS_RIGHT_IN2, LOW);
+        digitalWrite(PIN_MOTORS_IN1_RIGHT, LOW);
+        digitalWrite(PIN_MOTORS_IN2_RIGHT, LOW);
     }
     else
     {
         // Gradual brake, just turn off power
-        digitalWrite(PIN_MOTORS_LEFT_EN, LOW);
-        digitalWrite(PIN_MOTORS_RIGHT_EN, LOW);
+        digitalWrite(PIN_MOTORS_EN_LEFT, LOW);
+        digitalWrite(PIN_MOTORS_EN_RIGHT, LOW);
     }
 
     // Reset timer
@@ -184,7 +184,7 @@ bool turn(int degree)
 
     // If we want to make a left turn, the left side moves
     // backwards and the right side moves forward.
-    _move(MAX_SPEED, degree < 0, degree > 0, expectedTurnTimeMs);
+    _move(SPEED_MAX, degree < 0, degree > 0, expectedTurnTimeMs);
 
     return true;
 }

@@ -49,7 +49,7 @@ void loopSelfDriving()
         if (!isTurning())
         {
             // Start moving forward at a random speed, for a while (5s to 30s)
-            moveForward(random(MIN_SPEED, MAX_SPEED), random(5 * 1000, 30 * 1000));
+            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 30 * 1000));
 
             // Reset flag
             _lastActionWasTurn = false;
@@ -57,7 +57,7 @@ void loopSelfDriving()
     }
 
     // If we're not currently turning and obstacle is within range ...
-    if (!isTurning() && frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= AVOID_OBSTACLE_AT_PROXIMITY_CM)
+    if (!isTurning() && frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= OBSTACLE_LEVEL2_PROXIMITY_CM)
     {
         // Randomly turn 90 to 180 degrees, left or right. At the end
         // of the turn, the robot will stop moving.
