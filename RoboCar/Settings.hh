@@ -7,10 +7,10 @@
 #pragma once
 
 // Max speed of the motors
-#define MAX_SPEED 200
+#define MAX_SPEED                       200
 
 // Min speed of the motors
-#define MIN_SPEED 100
+#define MIN_SPEED                       100
 
 // How long to wait after power on, before taking over control
 #define BOOT_UP_DELAY_MS                5000
