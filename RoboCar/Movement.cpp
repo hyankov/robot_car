@@ -103,26 +103,24 @@ void loopMovement()
 bool isTurning()
 {
     // See: 'Motor truth table' above. We're turning if ...
-    bool isTurning =  
+    return  
         // One of the motors is stopped, but the other is not
-        (digitalRead(PIN_MOTORS_LEFT_EN) != digitalRead(PIN_MOTORS_RIGHT_EN))
+            (digitalRead(PIN_MOTORS_LEFT_EN) != digitalRead(PIN_MOTORS_RIGHT_EN))
         // or they're moving in different directions
-        || (digitalRead(PIN_MOTORS_LEFT_IN1) != digitalRead(PIN_MOTORS_RIGHT_IN1))
-        || (digitalRead(PIN_MOTORS_LEFT_IN2) != digitalRead(PIN_MOTORS_RIGHT_IN2));
-
-    return isTurning;
+        ||  (digitalRead(PIN_MOTORS_LEFT_IN1) != digitalRead(PIN_MOTORS_RIGHT_IN1))
+        ||  (digitalRead(PIN_MOTORS_LEFT_IN2) != digitalRead(PIN_MOTORS_RIGHT_IN2));
 }
 
 bool isStopped()
 {
    // See: 'Motor truth table' above. We're not moving if ...
-   bool isStopped =  
+   return
         // Left is stopped
         (
             // motor is stopped
                 !digitalRead(PIN_MOTORS_LEFT_EN)
             // or IN1 & IN2 are equal (0 or 1)
-            || (digitalRead(PIN_MOTORS_LEFT_IN1) == digitalRead(PIN_MOTORS_LEFT_IN2))
+            ||  (digitalRead(PIN_MOTORS_LEFT_IN1) == digitalRead(PIN_MOTORS_LEFT_IN2))
         )
 
         // and Right is stopped
@@ -130,10 +128,8 @@ bool isStopped()
             // motor is stopped
                 !digitalRead(PIN_MOTORS_RIGHT_EN)
             // or IN1 & IN2 are equal (0 or 1)
-            || (digitalRead(PIN_MOTORS_RIGHT_IN1) == digitalRead(PIN_MOTORS_RIGHT_IN2))
+            ||  (digitalRead(PIN_MOTORS_RIGHT_IN1) == digitalRead(PIN_MOTORS_RIGHT_IN2))
         );
-
-    return isStopped;
 }
 
 void moveForward(int speed, int forHowLongMs)

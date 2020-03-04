@@ -7,13 +7,13 @@
 #pragma once
 
 // Max speed of the motors
-#define MAX_SPEED 180
+#define MAX_SPEED 255
 
 // Min speed of the motors
 #define MIN_SPEED 100
 
 // How long to wait after power on, before taking over control
-#define BOOT_UP_DELAY_MS                2500
+#define BOOT_UP_DELAY_MS                5000
 
 // How long does it take (in ms) to make a 180 degree turn
 #define MOTOR_180_DEG_TURN_TIME_MS      1000
