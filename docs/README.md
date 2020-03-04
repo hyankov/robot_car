@@ -49,14 +49,13 @@ I am going to use a combination of [jumper wires](https://www.amazon.com/gp/prod
 [6x holder](https://www.amazon.com/gp/product/B081395LK3) of 1.2V AA NiMH recharchable batteries (rated 2000mAh each) = 7.2V
 
 ## Sensors
-- Ultrasonic (to detect and avoid obstacles)
+- Ultrasonic sensor HC-SR04 (to detect and avoid obstacles)
 
 ## Others
-- [Spacers/standoffs, to be able to put the components on to the chassis](https://www.amazon.com/gp/product/B073ZC6PB9)
+- [Spacers/standoffs](https://www.amazon.com/gp/product/B073ZC6PB9), to be able to put the components on to the chassis
 
 ## TODO:
 Sensors and parts to be added at a later stage:
-- Ultrasonic (to detect and avoid obstacles)
 - Servo (to rotate Ultrasonic sensor)
 - Bluetooth (to receive control over bluetooth phone joystick) or IR (take commands from remote control)
 - Photoresistor (to turn on/off LED headlights)
@@ -65,7 +64,7 @@ Sensors and parts to be added at a later stage:
 # Wiring
 Click image to download `fzz` file.
 
-## 4WD, 2 Bridges
+## 4WD, 2 Bridges (decided against it)
 ### Pros
 - Each tyre could go in a different direction, individually. Not sure if this helps a lot for turning left and right.
 - Maybe would put less load on the bridge
@@ -80,7 +79,7 @@ Click image to download `fzz` file.
 
 [![4WD, 2 Bridges](img/ObstacleCar_2_Bridges_4wd.jpg)](ObstacleCar_2_Bridges_4wd.fzz)
 
-## 4WD, 1 Bridge
+## 4WD, 1 Bridge (chose this approach)
 ### Pros
 - Will require only 6 pins on the Arduino
 - A bit less coding
@@ -92,6 +91,11 @@ Click image to download `fzz` file.
 [![4WD, 1 Bridge](img/ObstacleCar_1_Bridge_4wd.jpg)](ObstacleCar_1_Bridge_4wd.fzz)
 
 # Code
-**Work in progress ...**
+**See [code here](../RoboCar/)**.
 
-See [RoboCar.ino](../RoboCar/RoboCar.ino)
+Features:
+- [Settings](../RoboCar/Settings.hh) file
+- [Pins layout](../RoboCar/Pins.hh.hh) file
+- Modularity - separate 'tab'/class for the different concerns - Movement, Lights, SelfDriving, ObstacleDetection, etc
+- Non-blocking (no `delay` calls)
+- Uses [NewPing library](https://playground.arduino.cc/Code/NewPing)
