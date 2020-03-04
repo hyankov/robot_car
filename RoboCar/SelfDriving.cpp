@@ -60,9 +60,7 @@ void loopSelfDriving()
     if (!isTurning() && frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= AVOID_OBSTACLE_AT_PROXIMITY_CM)
     {
         // Randomly turn 90 to 180 degrees, left or right. At the end
-        // of the turn, the robot will stop moving. Multiple overlapping
-        // turns will be ignored. i.e. no new turn will begin until the
-        // previous finishes.
+        // of the turn, the robot will stop moving.
         if (turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1)))
         {
             _lastActionWasTurn = true;
