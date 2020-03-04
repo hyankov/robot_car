@@ -16,13 +16,6 @@
 #include "SelfDriving.hh"       // Responsible for the self-driving
 
 /* -----------------------
-    Private methods
------------------------ */
-
-// Keep track whether the last movement was a turn
-bool _lastActionWasTurn = false;
-
-/* -----------------------
     Public methods
 ----------------------- */
 
@@ -32,38 +25,47 @@ void setupSelfDriving()
 
 void loopSelfDriving()
 {
-    // If we are not moving (anymore)
-    if (isStopped())
+    // Don't interrupt the turning of the robot.
+    if (isTurning()) return;
+
+    // Ok, not turning, but might be moving ...
+
+    if (frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
     {
-        // if we didn't just finish making a turn ...
-        if (!_lastActionWasTurn)
+        // Not turning and there's an obstacle within range ...
+
+        if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_EXTREME_CM)
         {
-            // making a random turn
-            if (turn(random(-180, 180)))
-            {
-                _lastActionWasTurn = true;
-            }
+            // Obstacle is extremely close
+
+            // Start backing-off slowly. Eventually it will get into the next range
+            // of proximity and will make an evasive turn, or will get out of range
+            // and will do a random turn or move forward again.
+            moveBackwards(SPEED_MIN, 200);
         }
-
-        // if we didn't just start turning ...
-        if (!isTurning())
+        else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
         {
-            // Start moving forward at a random speed, for a while (5s to 30s)
-            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 30 * 1000));
+            // Obstacle is just close
 
-            // Reset flag
-            _lastActionWasTurn = false;
+            // Randomly turn 90 to 180 degrees, left or right. At the end
+            // of the turn, the robot would stop moving.
+            turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1));
         }
     }
-
-    // If we're not currently turning and obstacle is within range ...
-    if (!isTurning() && frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= OBSTACLE_LEVEL2_PROXIMITY_CM)
+    else if (isStopped())
     {
-        // Randomly turn 90 to 180 degrees, left or right. At the end
-        // of the turn, the robot will stop moving.
-        if (turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1)))
+        // Not turning, no obstacles, not moving ...
+        
+        // 50% chance of ...
+        if (random(0, 2))
         {
-            _lastActionWasTurn = true;
+            // making a random turn
+            turn(random(-180, 180));
+        }
+        else
+        {
+            // otherwise, start moving forward at a random speed, for a while (5s to 30s)
+            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 30 * 1000));
         }
     }
 }

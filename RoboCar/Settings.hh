@@ -26,8 +26,8 @@
 // When used in ping_median, it should be >= (NumberOfPings * 30)
 #define SONAR_PING_FREQUENCY_MS         150
 
-// Obstacle is EXTREMELY close
-#define OBSTACLE_LEVEL1_PROXIMITY_CM    10
-
 // Obstacle is close
-#define OBSTACLE_LEVEL2_PROXIMITY_CM    40
+#define OBSTACLE_PROXIMITY_CLOSE_CM     40
+
+// Obstacle is EXTREMELY close
+#define OBSTACLE_PROXIMITY_EXTREME_CM   10
