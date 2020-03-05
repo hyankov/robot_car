@@ -23,6 +23,7 @@
 ----------------------- */
 
 unsigned long _previousMsPing = 0;
+unsigned long _medianPingTimeout = 0;
 NewPing _frontSonar(PIN_SONAR_TRIG_FRONT, PIN_SONAR_ECHO_FRONT, SONAR_DISTANCE_MAX_CM);
 
 /* -----------------------
@@ -35,20 +36,22 @@ void setupObstacleDetection()
 {
     // Bug: This doesn't work. See https://forum.arduino.cc/index.php?topic=420604.0
     // NewPing::timer_ms(SONAR_PING_FREQUENCY_MS, _updateObstacleProximity);
+
+    _medianPingTimeout = SONAR_PING_MEDIAN_COUNT * 30;
 }
 
 void loopObstacleDetection()
 {
     unsigned long currentMillis = millis();
 
-    // Every SONAR_PING_FREQUENCY_MS milliseconds, update the distance to
+    // Every (SONAR_PING_MEDIAN_COUNT * 30) milliseconds, update the distance to
     // the front obstacle
-    if (currentMillis - _previousMsPing >= SONAR_PING_FREQUENCY_MS)
+    if (currentMillis >= _previousMsPing + _medianPingTimeout)
     {
         // save the last time
         _previousMsPing = currentMillis;
 
         // Get the distance, in cm. Apply correction filter.
-        frontObstacleDistanceCm = NewPing::convert_cm(_frontSonar.ping_median());
+        frontObstacleDistanceCm = NewPing::convert_cm(_frontSonar.ping_median(SONAR_PING_MEDIAN_COUNT));
     }
 }

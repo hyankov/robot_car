@@ -47,25 +47,42 @@ void loopSelfDriving()
         {
             // Obstacle is just close
 
-            // Randomly turn 90 to 180 degrees, left or right. At the end
-            // of the turn, the robot would stop moving.
-            turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1));
+            // based on evasion strategy
+            switch (OBSTACLE_EVASION_STRATEGY)
+            {
+                case LEFT:
+                    // Random left turn (> 90deg)
+                    turn(random(-90, -180));
+                    break;
+                
+                case RIGHT:
+                    // Random right turn (> 90deg)
+                    turn(random(90, 180));
+                    break;
+
+                case RANDOM:
+                default:
+                    // Random left or right (> 90deg)
+                    turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1));
+                    break;
+            }
+            
         }
     }
     else if (isStopped())
     {
         // Not turning, no obstacles, not moving ...
         
-        // 50% chance of ...
-        if (random(0, 2))
+        // 25% chance of ...
+        if (random(0, 4) == 1)
         {
             // making a random turn
             turn(random(-180, 180));
         }
         else
         {
-            // otherwise, start moving forward at a random speed, for a while (5s to 30s)
-            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 30 * 1000));
+            // otherwise, start moving forward at a random speed, for a while (5s to 10s)
+            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 10 * 1000));
         }
     }
 }
