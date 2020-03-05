@@ -25,7 +25,7 @@ void moveForward(int speed, int forHowLongMs);
 // Move backwards.
 // - speed: [SPEED_MIN] to [SPEED_MAX]
 // - forHowLongMs: for how long (in ms) to move forward
-void moveBackwards(unsigned int speed, unsigned int forHowLongMs);
+void moveBackwards(int speed, int forHowLongMs);
 
 // Stop.
 // - isBrake: make a braking stop
