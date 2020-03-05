@@ -41,7 +41,7 @@ void loopSelfDriving()
             // Start backing-off slowly. Eventually it will get into the next range
             // of proximity and will make an evasive turn, or will get out of range
             // and will do a random turn or move forward again.
-            moveBackwards(SPEED_MIN, 200);
+            moveBackwards(SPEED_MIN, 1000);
         }
         else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
         {
