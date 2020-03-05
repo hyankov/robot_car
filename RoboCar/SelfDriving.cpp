@@ -16,6 +16,25 @@
 #include "SelfDriving.hh"       // Responsible for the self-driving
 
 /* -----------------------
+    Private methods
+----------------------- */
+
+// Randomly turns left or right, for a random time.
+// - fromForHowLongMs: from duration in ms
+// - toForHowLongMs: to duration in ms
+void _randomTurn(long fromForHowLongMs, long toForHowLongMs)
+{
+    if (random(0, 2))
+    {
+        turnLeft(random(fromForHowLongMs, toForHowLongMs));
+    }
+    else
+    {
+        turnRight(random(fromForHowLongMs, toForHowLongMs));
+    }
+}
+
+/* -----------------------
     Public methods
 ----------------------- */
 
@@ -26,7 +45,8 @@ void setupSelfDriving()
 void loopSelfDriving()
 {
     // Don't interrupt the turning of the robot.
-    if (isTurning()) return;
+    if (isTurning())
+        return;
 
     // Ok, not turning, but might be moving ...
 
@@ -41,7 +61,7 @@ void loopSelfDriving()
             // Start backing-off slowly. Eventually it will get into the next range
             // of proximity and will make an evasive turn, or will get out of range
             // and will do a random turn or move forward again.
-            moveBackwards(SPEED_MIN, 1000);
+            moveBackwards(SPEED_MIN, 250);
         }
         else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
         {
@@ -51,33 +71,28 @@ void loopSelfDriving()
             switch (OBSTACLE_EVASION_STRATEGY)
             {
                 case LEFT:
-                    // Random left turn (> 90deg)
-                    turn(random(-90, -180));
+                    turnLeft(125);
                     break;
-                
+
                 case RIGHT:
-                    // Random right turn (> 90deg)
-                    turn(random(90, 180));
+                    turnRight(125);
                     break;
 
                 case RANDOM:
                 default:
-                    // Random left or right (> 90deg)
-                    turn(random(90, 180) * (random(0, 2) == 0 ? 1 : -1));
+                    _randomTurn(500, 1000);
                     break;
             }
-            
         }
     }
     else if (isStopped())
     {
         // Not turning, no obstacles, not moving ...
-        
+
         // 25% chance of ...
         if (random(0, 4) == 1)
         {
-            // making a random turn
-            turn(random(-180, 180));
+            _randomTurn(200, 2000);
         }
         else
         {

@@ -48,21 +48,12 @@ void _setMotorsDirection(bool leftIsBackwards, bool rightIsBackwards)
 
 void _move(int speed, bool leftIsBackwards, bool rightIsBackwards, int forHowLongMs)
 {
-    // Speed is SPEED_MIN to SPEED_MAX
-    speed = constrain(speed, SPEED_MIN, SPEED_MAX);
+    // Constrain within legal limits
+    speed = constrain(speed, 0, 255);
 
-    if (speed == SPEED_MAX)
-    {
-        // Both motor sides go at full speed ...
-        digitalWrite(PIN_MOTORS_EN_LEFT, HIGH);
-        digitalWrite(PIN_MOTORS_EN_RIGHT, HIGH);
-    }
-    else
-    {
-        // Both motor sides go at a specified speed ...
-        analogWrite(PIN_MOTORS_EN_LEFT, speed);
-        analogWrite(PIN_MOTORS_EN_RIGHT, speed);
-    }
+    // Both motor sides go at a specified speed ...
+    analogWrite(PIN_MOTORS_EN_LEFT, speed);
+    analogWrite(PIN_MOTORS_EN_RIGHT, speed);
 
     // Direct the motors the same way
     _setMotorsDirection(leftIsBackwards, rightIsBackwards);
@@ -134,12 +125,26 @@ bool isStopped()
 
 void moveForward(int speed, int forHowLongMs)
 {
-    _move(speed, false, false, forHowLongMs);
+    // Speed is constrained, SPEED_MIN to SPEED_MAX
+    _move(constrain(speed, SPEED_MIN, SPEED_MAX), false, false, forHowLongMs);
 }
 
 void moveBackwards(int speed, int forHowLongMs)
 {
-    _move(speed, true, true, forHowLongMs);
+    // Speed is constrained, SPEED_MIN to SPEED_MAX
+    _move(constrain(speed, SPEED_MIN, SPEED_MAX), true, true, forHowLongMs);
+}
+
+void turnLeft(int forHowLongMs)
+{
+    // Speed is max possible
+    _move(255, true, false, forHowLongMs);
+}
+
+void turnRight(int forHowLongMs)
+{
+    // Speed is max possible
+    _move(255, false, true, forHowLongMs);
 }
 
 void stop(bool isBrake)
@@ -164,27 +169,4 @@ void stop(bool isBrake)
 
     // Reset timer
     _stopMovementAt = 0;
-}
-
-bool turn(int degree)
-{
-    // If degree is 0, no-op
-    if (degree == 0) return false;
-
-    stop(true);
-
-    // Degree is -180 to 180
-    degree = constrain(degree, -180, 180);
-
-    // Stop movement after the time it takes to make a 1 degree turn at full
-    // speed, multiplied by the (abs) degrees we're turning.
-    // TODO: Use adjustable resistor to increase/decrease how long a 180-deg
-    // turn takes, because it might be different on different surfaces.
-    int expectedTurnTimeMs = (MOTOR_180_DEG_TURN_TIME_MS / 180.0) * abs(degree);
-
-    // If we want to make a left turn, the left side moves
-    // backwards and the right side moves forward.
-    _move(SPEED_MAX, degree < 0, degree > 0, expectedTurnTimeMs);
-
-    return true;
 }

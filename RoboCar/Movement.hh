@@ -27,11 +27,14 @@ void moveForward(int speed, int forHowLongMs);
 // - forHowLongMs: for how long (in ms) to move forward
 void moveBackwards(int speed, int forHowLongMs);
 
+// Make a left turn.
+// - forHowLongMs: for how long (in ms) to turn
+void turnLeft(int forHowLongMs);
+
+// Make a right turn.
+// - forHowLongMs: for how long (in ms) to turn
+void turnRight(int forHowLongMs);
+
 // Stop.
 // - isBrake: make a braking stop
 void stop(bool isBrake);
-
-// Make a turn.
-// - degree: -180 to 180. [0 to -180] is Left turn,
-// [0 to 180] is Right turn.
-bool turn(int degree);

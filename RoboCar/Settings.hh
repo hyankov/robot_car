@@ -16,10 +16,6 @@
 // How long to wait after power on, before taking over control
 #define BOOT_UP_DELAY_MS                5000
 
-// How long does it take (in ms) to make a 180 degree turn at
-// max speed (1000 at 255)
-#define MOTOR_180_DEG_TURN_TIME_MS      1600
-
 // Maximum distance we want to ping for (in centimeters)
 // Maximum sensor distance is rated at 400-500cm.
 #define SONAR_DISTANCE_MAX_CM           200
