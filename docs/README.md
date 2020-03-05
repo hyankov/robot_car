@@ -91,15 +91,31 @@ Click image to download `fzz` file.
 [![4WD, 1 Bridge](img/ObstacleCar_1_Bridge_4wd.jpg)](ObstacleCar_1_Bridge_4wd.fzz)
 
 # Code
-**See [code here](../RoboCar/)**.
+**See [code here](../RoboCar/)**. All code is implemented as non-blocking, i.e. there are no `delay` calls.
 
-Features:
-- [Settings](../RoboCar/Settings.hh) file
-- [Pins layout](../RoboCar/Pins.hh) file
-- Separate 'modules' for the different concerns:
-  - [Movement](../RoboCar/Movement.cpp)
-  - [Lights](../RoboCar/Lights.cpp)
-  - [SelfDriving](../RoboCar/SelfDriving.cpp)
+## Settings
+There is two setting files that may need adjustment:
+- [Settings](../RoboCar/Settings.hh) - various fine-tune settings, such as `min` and `max` robot speed, obstacle evasion strategy and similar.
+- [Pins layout](../RoboCar/Pins.hh) - the Arduino pins to be setup in accordance with your own wiring.
+
+## Movement
+Code responsible for the robot movement management is implemented here:
+- [Movement](../RoboCar/Movement.cpp)
+  
+It is *not* responsible for controlling the behavior of the robot, only for the movement, such as `turnLeft`, `turnRight`, `moveBackwards`, `moveForward`, etc.
+
+## Obstacle detection
+The code responsible for detecting obstacles is implemented here:
   - [ObstacleDetection](../RoboCar/ObstacleDetection.cpp)
-- Non-blocking (no `delay` calls)
-- Uses [NewPing library](https://playground.arduino.cc/Code/NewPing)
+
+It makes use of [NewPing library](https://playground.arduino.cc/Code/NewPing).
+
+## Self-driving
+The code responsible for taking robot-driving decisions based on input from the outside world (such as obstacle detection) is implemented here:
+- [SelfDriving](../RoboCar/SelfDriving.cpp)
+
+## Lights management (TODO)
+The robot will have headlights and rear light. They will light in accordance with the maneuvers the robot is doing - i.e. turning, stopping, backing up, etc. The robot will also have a photoresistor on board, which will turn on the head and rear lights under dim conditions.
+  
+The code will be implemented here:
+- [Lights](../RoboCar/Lights.cpp)
