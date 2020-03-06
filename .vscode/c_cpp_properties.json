@@ -15,7 +15,8 @@
                 "${env:programfiles(x86)}\\Arduino\\libraries\\**",
                 "${env:userprofile}\\Documents\\Arduino\\hardware\\tools\\**",
                 "${env:userprofile}\\Documents\\Arduino\\libraries\\**",
-                "${env:userprofile}\\Documents\\Arduino\\libraries\\NewPing\\src"
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\NewPing\\src",
+                "${env:userprofile}\\Documents\\Arduino\\libraries\\U8glib\\src"
             ],
             "forcedInclude": [
                 "${env:programfiles(x86)}\\Arduino\\hardware\\arduino\\avr\\cores\\arduino\\Arduino.h"

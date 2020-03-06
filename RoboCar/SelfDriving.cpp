@@ -61,7 +61,7 @@ void loopSelfDriving()
             // Start backing-off slowly. Eventually it will get into the next range
             // of proximity and will make an evasive turn, or will get out of range
             // and will do a random turn or move forward again.
-            moveBackwards(SPEED_MIN, 250);
+            moveBackwards(SPEED_MIN, OBSTACLE_EVASION_BACKING_MS);
         }
         else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
         {
@@ -71,15 +71,17 @@ void loopSelfDriving()
             switch (OBSTACLE_EVASION_STRATEGY)
             {
                 case LEFT:
-                    turnLeft(125);
+                    turnLeft(OBSTACLE_EVASION_TURNING_MS);
                     break;
 
                 case RIGHT:
-                    turnRight(125);
+                    turnRight(OBSTACLE_EVASION_TURNING_MS);
                     break;
 
                 case RANDOM:
                 default:
+                    // TODO: Pick a random direction to hold until the obstacle is evaded,
+                    // and in this case use OBSTACLE_EVASION_TURNING_MS
                     _randomTurn(500, 1000);
                     break;
             }
@@ -97,7 +99,7 @@ void loopSelfDriving()
         else
         {
             // otherwise, start moving forward at a random speed, for a while (5s to 10s)
-            moveForward(random(SPEED_MIN, SPEED_MAX), random(5 * 1000, 10 * 1000));
+            moveForward(random(SPEED_MIN, SPEED_MAX), random(5, 10)  * 1000);
         }
     }
 }

@@ -20,12 +20,16 @@
 #include "ObstacleDetection.hh" // Responsible for detecting obstacles
 #include "Lights.hh"            // Responsible for managing the lights of the car
 #include "SelfDriving.hh"       // Responsible for the self-driving
+#include "Display.hh"           // Responsible for the display
 
 // Setup and initialize
 void setup()
 {
     // Random seed
     randomSeed(analogRead(PIN_UNUSED_ANALOG));
+
+    // Setup the display module
+    setupDisplay();
 
     // Setup the movements module
     setupMovement();
@@ -41,7 +45,7 @@ void setup()
 
     // Wait for a little while right after booting, to allow
     // people to back-off.
-    delay(BOOT_UP_DELAY_MS);
+    delay(BOOT_UP_DELAY_S * 1000);
 }
 
 // The main loop, repeating over and over again
@@ -50,4 +54,5 @@ void loop()
     loopObstacleDetection();
     loopMovement();
     loopSelfDriving();
+    loopDisplay();
 }
