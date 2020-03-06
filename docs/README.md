@@ -1,3 +1,5 @@
+[[TOC]]
+
 # Description
 This project puts together an obstacle-avoiding self-driving robot car. At a later stage I will also upgrade it to receive control over Bluetooth phone-joystick and to turn on and off headlights based on light conditions.
 
