@@ -1,4 +1,23 @@
-[[TOC]]
+- [Description](#description)
+- [Gallery](#gallery)
+- [Parts used](#parts-used)
+  - [Chassis kit](#chassis-kit)
+  - [L298N H-Bridge(s)](#l298n-h-bridges)
+  - [Wires](#wires)
+  - [Power](#power)
+  - [Sensors](#sensors)
+  - [Others](#others)
+  - [TODO:](#todo)
+- [Wiring](#wiring)
+  - [4WD, 1 Bridge](#4wd-1-bridge)
+    - [Pros](#pros)
+    - [Cons](#cons)
+- [Code](#code)
+  - [Settings](#settings)
+  - [Movement](#movement)
+  - [Obstacle detection](#obstacle-detection)
+  - [Self-driving](#self-driving)
+  - [Lights management (TODO)](#lights-management-todo)
 
 # Description
 This project puts together an obstacle-avoiding self-driving robot car. At a later stage I will also upgrade it to receive control over Bluetooth phone-joystick and to turn on and off headlights based on light conditions.
