@@ -12,7 +12,7 @@
 ----------*/
 
 // Max speed of the motors (0 to 255)
-#define SPEED_MAX                       150
+#define SPEED_MAX                       130
 
 // Min speed of the motors (0 to 255)
 // Values lower than 80 may not get the motor moving!
@@ -39,7 +39,7 @@
 --------------------*/
 
 // Obstacle is close
-#define OBSTACLE_PROXIMITY_CLOSE_CM     50
+#define OBSTACLE_PROXIMITY_CLOSE_CM     40
 
 // Obstacle is EXTREMELY close
 #define OBSTACLE_PROXIMITY_EXTREME_CM   15

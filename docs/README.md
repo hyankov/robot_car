@@ -1,6 +1,23 @@
 # Description
 This project puts together an obstacle-avoiding self-driving robot car. At a later stage I will also upgrade it to receive control over Bluetooth phone-joystick and to turn on and off headlights based on light conditions.
 
+# Gallery
+<script src="https://cdn.jsdelivr.net/npm/publicalbum@latest/embed-ui.min.js" async></script>
+<div class="pa-carousel-widget" style="width:100%; height:480px; display:none;"
+  data-link="https://photos.app.goo.gl/AvjJdpDaXdEihXDb9"
+  data-title="Robot Car"
+  data-description="9 new photos added to shared album">
+  <object data="https://lh3.googleusercontent.com/yjVoZvgdJt6lLyMYCD9JR-V34XHjPvLeSf4km3wyh8C9AI2NDNbyX7_EsfK2BYKTjYfvYPWxakdTyJS3dr1Ig143LMHpCVxXc-Q6DZ1QOCvTuTi51cJowWT6xrsBrTxQUcc6qr9k0G0=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/LAwer_O6Hyd0hpmFctiwaJQYTOt56SpDZDr4R0TEe-4jT50Rz1XZaXK3JULKgfkzRXb-mw9ASeAQ0wByzwMzajrfyrDjHBsFPzBcWEBoQI4TKQWitOi2jGzLaYkaXkab8ja2Ou7QjAA=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/RRZkngbPCR7FS95gW_MxNP2sIzZXOrQZzc5NWqOP8MBB3Q-82-KG5AZLNqEz0KfhoMkV9L3QYnPrwlCRs9aQOYsunKEKRVysPStj1t6Rgeu39hllMz0J2Il0qM0BFvYMcQveWbceUdI=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/RKW1kN0OLuTdtHl6lL_VyQgJn9r8OidepgGqSxL_pOPXqtREnAEourFWcWyGzarxd2bNiDULTLxewNEmur3x4S-NE4xDyeF6gC_u6c2RI7c6xvc8il3JrQmi0MFnXYPFQBhlBJksET0=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/FDoqt0zDnWvFFN-nHdzSZ_h4eAR8owD22UeLiyvo-Tf4dzI6auWME0FtM0EhCfNECbEvQ0_n2ZGicNarUU6srKaxD5uI6fFyJoEejUPc3B-7VxCxYP2NKOSK5XAv7FDkVZU1KK_DFGM=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/gZkmvSFaXzO3UxmerxesP8raLyGcYdbJgnbZy0QuKNWaqyJBXBqYqYxhaLjz-Hf5AtsZYTWcABsbhdoSDeToyKkrrJ69a10hFmbmlNvc5qjVcVQfuONWRs1ZEvnPahkvHaA2ruVM8Dw=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/b63pThXOhTJTEcsl16vjYXixiCmLx2Stu_NVYejEQ8uiih5CgncSIDySkQ4g3XFH_fC4CANB6mXlbT2LWReOo_czl1KgQP1gD_V7xFCgCD12QlkiKg3sj7qUDF04NqITeB90xGdVjq4=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/1VcpCLH37aQBLRRFZ6LkYEio8TWZCiBKPUjtML1lYcQSoOfHAMtChjKMyPGRaiZqBtJCOzJqVWuRBJ5PDO6fM0zBzhhoJ9D1swT1it1efMKg_MKuZlH-QgpcFoS2WDgplmJgUELnNJI=w1920-h1080"></object>
+  <object data="https://lh3.googleusercontent.com/Vn4A8RIKz89OjlU6DR2qUs2ipwb6a1N_TjhOxbmbjVkAdOHzrIKw1ZYaEnIoYrn-Di87XgC4zARPBTw9dZkIbpF2bWfGG6d6XrsnYolg6QmZRly2BRv4OiFfW0maHFpSGHZWka8T3K0=w1920-h1080"></object>
+</div>
+
 # Parts used
 ## Chassis kit
 Contains basic car chassis, motors, wheel and tyres and a not very useful 4 x 1.5V AA battery holder.
@@ -58,28 +75,14 @@ I am going to use a combination of [jumper wires](https://www.amazon.com/gp/prod
 Sensors and parts to be added at a later stage:
 - Servo (to rotate Ultrasonic sensor)
 - Bluetooth (to receive control over bluetooth phone joystick) or IR (take commands from remote control)
+- Headlights and rear lights
 - Photoresistor (to turn on/off LED headlights)
 - Screen to show misc information
 
 # Wiring
 Click image to download `fzz` file.
 
-## 4WD, 2 Bridges (decided against it)
-### Pros
-- Each tyre could go in a different direction, individually. Not sure if this helps a lot for turning left and right.
-- Maybe would put less load on the bridge
-
-### Cons
-- Takes up almost all of my Arduino pins (2 bridges x 2 motors each x 3 wires = 12 pins!)
-- Will have to split red wire to power both bridges
-- Will lose symmetry (one of the bridges will power the Arduino)
-- Might be more power-hungry? Not sure yet.
-- Takes more wiring
-- Requires more coding
-
-[![4WD, 2 Bridges](img/ObstacleCar_2_Bridges_4wd.jpg)](ObstacleCar_2_Bridges_4wd.fzz)
-
-## 4WD, 1 Bridge (chose this approach)
+## 4WD, 1 Bridge
 ### Pros
 - Will require only 6 pins on the Arduino
 - A bit less coding
