@@ -12,14 +12,14 @@
 ----------*/
 
 // Max speed of the motors (0 to 255)
-#define SPEED_MAX                       130
+#define SPEED_MAX                       120
 
 // Min speed of the motors (0 to 255)
 // Values lower than 80 may not get the motor moving!
-#define SPEED_MIN                       100
+#define SPEED_MIN                       90
 
 // How long to wait after power on, before taking over control
-#define BOOT_UP_DELAY_S                 5
+#define BOOT_UP_DELAY_S                 3
 
 /*----------
    Sonar
@@ -39,7 +39,7 @@
 --------------------*/
 
 // Obstacle is close
-#define OBSTACLE_PROXIMITY_CLOSE_CM     40
+#define OBSTACLE_PROXIMITY_CLOSE_CM     30
 
 // Obstacle is EXTREMELY close
 #define OBSTACLE_PROXIMITY_EXTREME_CM   15
@@ -56,4 +56,4 @@ enum EVASION_STRATEGY { LEFT, RIGHT, RANDOM };
 
 // When we evade a close obstacle, for how long do we turn
 // at a time
-#define OBSTACLE_EVASION_TURNING_MS     125
+#define OBSTACLE_EVASION_TURNING_MS     200

@@ -19,6 +19,9 @@
     Private methods
 ----------------------- */
 
+// Whether the next idle action should be a turn
+bool _nextIdleActionShouldBeTurn = false;
+
 // Randomly turns left or right, for a random time.
 // - fromForHowLongMs: from duration in ms
 // - toForHowLongMs: to duration in ms
@@ -59,15 +62,16 @@ void loopSelfDriving()
             // Obstacle is extremely close
 
             // Start backing-off slowly. Eventually it will get into the next range
-            // of proximity and will make an evasive turn, or will get out of range
-            // and will do a random turn or move forward again.
+            // of proximity (i.e. just 'close', instead of 'extreme') and will make
+            // an evasive turn ...
             moveBackwards(SPEED_MIN, OBSTACLE_EVASION_BACKING_MS);
-        }
-        else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
-        {
-            // Obstacle is just close
 
-            // based on evasion strategy
+            // ... or will get out of obstacles range and the next action would be a turn
+            _nextIdleActionShouldBeTurn = true;
+        }
+        else
+        {
+            // Obstacle is at least 'close', take an evasive turn based on strategy
             switch (OBSTACLE_EVASION_STRATEGY)
             {
                 case LEFT:
@@ -89,17 +93,22 @@ void loopSelfDriving()
     }
     else if (isStopped())
     {
-        // Not turning, no obstacles, not moving ...
+        // The bot is idle. Not turning, no obstacles, not moving
+        // so take an 'idle action'.
 
-        // 25% chance of ...
-        if (random(0, 4) == 1)
+        if (_nextIdleActionShouldBeTurn)
         {
+            // Next idle action should be a turn, so turn
             _randomTurn(200, 2000);
         }
         else
         {
-            // otherwise, start moving forward at a random speed, for a while (5s to 10s)
+            // Next idle action shouldn't be a turn, so move forward at
+            // a random speed, for a while (5s to 10s)
             moveForward(random(SPEED_MIN, SPEED_MAX), random(5, 10)  * 1000);
         }
+
+        // Make the next idle action the opposite (i.e. cycle them)
+        _nextIdleActionShouldBeTurn = !_nextIdleActionShouldBeTurn;
     }
 }
