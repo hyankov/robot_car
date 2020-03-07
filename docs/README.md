@@ -31,7 +31,7 @@ This project puts together an obstacle-avoiding self-driving robot car. At a lat
 | [<img src="https://img.youtube.com/vi/C9YZdx0JLGU/0.jpg" alt="Video 1" title="Video 1" width="250" />](https://www.youtube.com/watch?v=C9YZdx0JLGU)  | [<img src="https://img.youtube.com/vi/lolJqE-91AY/0.jpg" alt="Video 2" title="Video 2" width="250" />](https://www.youtube.com/watch?v=lolJqE-91AY)  | [<img src="https://img.youtube.com/vi/8RAJ4j2J78Y/0.jpg" alt="Video 3" title="Video 3" width="250" />](https://www.youtube.com/watch?v=8RAJ4j2J78Y)
 
 ## Photos
-[![header](img/header.jpg "Click for gallery")](https://photos.google.com/album/AF1QipOW7-6AJxejzD9pshVsWFPkFoWnUvfJlmqFFQmA)
+[![header](img/header.jpg "Click for gallery")](https://photos.app.goo.gl/AvjJdpDaXdEihXDb9)
 *Click image for full gallery*
 
 # Parts used
