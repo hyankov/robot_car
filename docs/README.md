@@ -7,17 +7,16 @@
   - [Power](#power)
   - [Sensors](#sensors)
   - [Others](#others)
-  - [TODO:](#todo)
 - [Wiring](#wiring)
   - [4WD, 1 Bridge](#4wd-1-bridge)
     - [Pros](#pros)
     - [Cons](#cons)
+- [TODO](#todo)
 - [Code](#code)
   - [Settings](#settings)
   - [Movement](#movement)
   - [Obstacle detection](#obstacle-detection)
   - [Self-driving](#self-driving)
-  - [Lights management (TODO)](#lights-management-todo)
 
 # Description
 This project puts together an obstacle-avoiding self-driving robot car. At a later stage I will also upgrade it to receive control over Bluetooth phone-joystick and to turn on and off headlights based on light conditions.
@@ -77,15 +76,7 @@ I am going to use a combination of [jumper wires](https://www.amazon.com/gp/prod
 - Ultrasonic sensor HC-SR04 (to detect and avoid obstacles)
 
 ## Others
-- [Spacers/standoffs](https://www.amazon.com/gp/product/B073ZC6PB9), to be able to put the components on to the chassis
-
-## TODO:
-Sensors and parts to be added at a later stage:
-- Servo (to rotate Ultrasonic sensor)
-- Bluetooth (to receive control over bluetooth phone joystick) or IR (take commands from remote control)
-- Headlights and rear lights
-- Photoresistor (to turn on/off LED headlights)
-- Screen to show misc information
+- [Standoffs](https://www.amazon.com/gp/product/B073ZC6PB9), to be able to put the components on to the chassis
 
 # Wiring
 ## 4WD, 1 Bridge
@@ -100,6 +91,13 @@ Sensors and parts to be added at a later stage:
 [![4WD, 1 Bridge](img/ObstacleCar_1_Bridge_4wd.jpg)](ObstacleCar_1_Bridge_4wd.fzz)
 *Click image to download `fzz` file*
 
+# TODO
+Sensors and parts to be added at a later stage:
+- Servo (to rotate Ultrasonic sensor)
+- Bluetooth (to receive control over bluetooth phone joystick) or IR (take commands from remote control)
+- Headlights, rear lights and photoresistor (to turn on/off LED headlights)
+- Screen to show misc information
+- 
 # Code
 **See [code here](../RoboCar/)**. All code is implemented as non-blocking, i.e. there are no `delay` calls.
 
@@ -123,9 +121,3 @@ It makes use of [NewPing library](https://playground.arduino.cc/Code/NewPing).
 ## Self-driving
 The code responsible for taking robot-driving decisions based on input from the outside world (such as obstacle detection) is implemented here:
 - [SelfDriving](../RoboCar/SelfDriving.cpp)
-
-## Lights management (TODO)
-The robot will have headlights and rear light. They will light in accordance with the maneuvers the robot is doing - i.e. turning, stopping, backing up, etc. The robot will also have a photoresistor on board, which will turn on the head and rear lights under dim conditions.
-  
-The code will be implemented here:
-- [Lights](../RoboCar/Lights.cpp)

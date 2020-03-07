@@ -12,7 +12,6 @@
 #include "Settings.hh"          // Include settings
 #include "Movement.hh"          // Responsible for controlling the movements of the robot
 #include "ObstacleDetection.hh" // Responsible for detecting obstacles
-#include "Lights.hh"            // Responsible for managing the lights of the car
 #include "SelfDriving.hh"       // Responsible for the self-driving
 
 /* -----------------------
@@ -60,6 +59,9 @@ void loopSelfDriving()
         if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_EXTREME_CM)
         {
             // Obstacle is extremely close
+
+            // Hard stop
+            stop(true);
 
             // Start backing-off slowly. Eventually it will get into the next range
             // of proximity (i.e. just 'close', instead of 'extreme') and will make
