@@ -26,11 +26,13 @@ This project puts together an obstacle-avoiding self-driving robot car. At a lat
 # Gallery
 
 ## Videos
-<a style="padding-right: 10px; float: left;" href="https://www.youtube.com/watch?v=C9YZdx0JLGU"><img src="https://img.youtube.com/vi/C9YZdx0JLGU/0.jpg" alt="Video 1" title="Video 1" width="200" /></a>
+<div>
+  <a style="padding-right: 10px; float: left;" href="https://www.youtube.com/watch?v=C9YZdx0JLGU"><img src="https://img.youtube.com/vi/C9YZdx0JLGU/0.jpg" alt="Video 1" title="Video 1" width="200" /></a>
 
-<a style="padding-right: 10px; float: left;" href="https://www.youtube.com/watch?v=lolJqE-91AY"><img src="https://img.youtube.com/vi/lolJqE-91AY/0.jpg" alt="Video 2" title="Video 2" width="200" /></a>
+  <a style="padding-right: 10px; float: left;" href="https://www.youtube.com/watch?v=lolJqE-91AY"><img src="https://img.youtube.com/vi/lolJqE-91AY/0.jpg" alt="Video 2" title="Video 2" width="200" /></a>
 
-<a style="float:clear" href="https://www.youtube.com/watch?v=8RAJ4j2J78Y"><img src="https://img.youtube.com/vi/8RAJ4j2J78Y/0.jpg" alt="Video 3" title="Video 3" width="200" /></a>
+  <a style="float:clear" href="https://www.youtube.com/watch?v=8RAJ4j2J78Y"><img src="https://img.youtube.com/vi/8RAJ4j2J78Y/0.jpg" alt="Video 3" title="Video 3" width="200" /></a>
+</div>
 
 ## Photos
 [![header](img/header.jpg "Click for gallery")](https://photos.google.com/album/AF1QipOW7-6AJxejzD9pshVsWFPkFoWnUvfJlmqFFQmA)
