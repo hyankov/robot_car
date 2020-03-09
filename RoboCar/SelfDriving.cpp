@@ -99,7 +99,8 @@ void loopSelfDriving()
             // TODO: Slow down
         }
     }
-    else if (isStopped())
+    
+    if (isStopped())
     {
         // The bot is idle. Not turning, no obstacles, not moving
         // so take an 'idle action'.
