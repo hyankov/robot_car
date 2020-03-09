@@ -52,9 +52,10 @@ void loopSelfDriving()
 
     // Ok, not turning, but might be moving ...
 
-    if (frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
+    if (frontObstacleDistanceCm > 0 && frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_INRANGE_CM)
     {
         // Not turning and there's an obstacle within range ...
+        // Now, from closest case to farthest ...
 
         if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_EXTREME_CM)
         {
@@ -71,9 +72,9 @@ void loopSelfDriving()
             // ... or will get out of obstacles range and the next action would be a turn
             _nextIdleActionShouldBeTurn = true;
         }
-        else
+        else if (frontObstacleDistanceCm <= OBSTACLE_PROXIMITY_CLOSE_CM)
         {
-            // Obstacle is at least 'close', take an evasive turn based on strategy
+            // Obstacle is 'close', take an evasive turn based on strategy
             switch (OBSTACLE_EVASION_STRATEGY)
             {
                 case LEFT:
@@ -88,9 +89,14 @@ void loopSelfDriving()
                 default:
                     // TODO: Pick a random direction to hold until the obstacle is evaded,
                     // and in this case use OBSTACLE_EVASION_TURNING_MS
-                    _randomTurn(500, 1000);
+                    _randomTurn(OBSTACLE_EVASION_RANDOM_TURN_MIN_MS, OBSTACLE_EVASION_RANDOM_TURN_MAX_MS);
                     break;
             }
+        }
+        else
+        {
+            // Obstacle is at least 'in range'
+            // TODO: Slow down
         }
     }
     else if (isStopped())
@@ -101,13 +107,13 @@ void loopSelfDriving()
         if (_nextIdleActionShouldBeTurn)
         {
             // Next idle action should be a turn, so turn
-            _randomTurn(200, 2000);
+            _randomTurn(RANDOM_TURN_MIN_MS, RANDOM_TURN_MAX_MS);
         }
         else
         {
             // Next idle action shouldn't be a turn, so move forward at
-            // a random speed, for a while (5s to 10s)
-            moveForward(random(SPEED_MIN, SPEED_MAX), random(5, 10)  * 1000);
+            // for a while (5s to 10s)
+            moveForward(SPEED_MAX, random(RANDOM_MOVEMENT_FWD_MIN_S, RANDOM_MOVEMENT_FWD_MAX_S)  * 1000);
         }
 
         // Make the next idle action the opposite (i.e. cycle them)
