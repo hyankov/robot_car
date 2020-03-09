@@ -1,6 +1,7 @@
 /*
     -------------------------------------------------------
     The module which controls the display of the robot car.
+    Note: Still work in progress!
     -------------------------------------------------------
 
     See: https://github.com/olikraus/u8glib
@@ -12,9 +13,9 @@
 #include "Arduino.h"
 
 // 1st party includes
-#include "Pins.hh"     // Pin layout. Set pins according to your wiring
-#include "Settings.hh" // Include settings
-#include "Lights.hh"   // Method definitions
+#include "Pins.hh"      // Pin layout. Set pins according to your wiring
+#include "Settings.hh"  // Include settings
+#include "Display.hh"   // Responsible for display
 
 // 3rd party includes
 #include <U8glib.h>
@@ -41,7 +42,7 @@ void _draw()
 void setupDisplay()
 {
     // flip screen, if required
-    // u8g.setRot180();
+    _u8g.setRot180();
 
     // assign default color value
     if (_u8g.getMode() == U8G_MODE_R3G3B2)
@@ -64,15 +65,8 @@ void setupDisplay()
 
 void loopDisplay()
 {
-    // picture loop
     _u8g.firstPage();
-    do
-    {
-        _draw();
-    } while (_u8g.nextPage());
-
-    // rebuild the picture after some delay
-    // delay(50);
+    do { _draw(); } while (_u8g.nextPage());
 }
 
 void displayMsg(String msg)
