@@ -4,7 +4,9 @@
     -------------------------------------------------------
 */
 
-//  NOTE: To be invoked at initialization time!
+#pragma once
+
+// NOTE: To be invoked at initialization time!
 void setupMovement();
 
 // The main loop

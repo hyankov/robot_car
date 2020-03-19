@@ -4,10 +4,12 @@
     ------------------------------------------------------------------
 */
 
+#pragma once
+
 // The distance to the obstacle in front
 extern unsigned int frontObstacleDistanceCm;
 
-//  NOTE: To be invoked at initialization time!
+// NOTE: To be invoked at initialization time!
 void setupObstacleDetection();
 
 // The main loop
